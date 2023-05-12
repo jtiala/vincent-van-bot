@@ -6,34 +6,35 @@ import { Point } from "./types/Point";
 
 export const moveBot = async (
   bot: Bot,
-  dir: Dir,
+  dir: Dir | DiagonalDir,
   dist: number
 ): Promise<Bot> => {
-  for (let i = 0; i < dist; i++) {
-    bot = await api.moveBot(bot, dir);
+  if (
+    dir === "RIGHT_UP" ||
+    dir === "RIGHT_DOWN" ||
+    dir === "LEFT_UP" ||
+    dir === "LEFT_DOWN"
+  ) {
+    const dirs: Dir[] =
+      dir === "RIGHT_DOWN"
+        ? ["RIGHT", "DOWN"]
+        : dir === "RIGHT_UP"
+        ? ["RIGHT", "UP"]
+        : dir === "LEFT_DOWN"
+        ? ["LEFT", "DOWN"]
+        : ["LEFT", "UP"];
+
+    for (const dir of dirs) {
+      for (let i = 0; i < dist; i++) {
+        bot = await api.moveBot(bot, dir);
+      }
+    }
+
+    return bot;
   }
 
-  return bot;
-};
-
-export const moveBotDiagonal = async (
-  bot: Bot,
-  dir: DiagonalDir,
-  dist: number
-): Promise<Bot> => {
-  const dirs: Dir[] =
-    dir === "RIGHT_DOWN"
-      ? ["RIGHT", "DOWN"]
-      : dir === "RIGHT_UP"
-      ? ["RIGHT", "UP"]
-      : dir === "LEFT_DOWN"
-      ? ["LEFT", "DOWN"]
-      : ["LEFT", "UP"];
-
-  for (const dir of dirs) {
-    for (let i = 0; i < dist; i++) {
-      bot = await api.moveBot(bot, dir);
-    }
+  for (let i = 0; i < dist; i++) {
+    bot = await api.moveBot(bot, dir);
   }
 
   return bot;

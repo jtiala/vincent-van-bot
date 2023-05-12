@@ -1,5 +1,5 @@
 import * as api from "./Api";
-import { moveBot, moveBotDiagonal } from "./move";
+import { moveBot } from "./move";
 import { Bot } from "./types/Bot";
 import { DiagonalDir, Dir, dirs } from "./types/Dirs";
 
@@ -122,7 +122,7 @@ export const drawDickbutt = async (bot: Bot): Promise<Bot> => {
   bot = await drawLine(bot, "RIGHT_UP", 2);
   bot = await drawLine(bot, "UP", 2);
   bot = await drawLine(bot, "RIGHT_UP", 4);
-  bot = await moveBotDiagonal(bot, "RIGHT_DOWN", 4);
+  bot = await moveBot(bot, "RIGHT_DOWN", 4);
   bot = await drawLine(bot, "RIGHT", 2);
   bot = await drawLine(bot, "LEFT", 3);
   bot = await drawLine(bot, "LEFT_DOWN", 2);
@@ -145,7 +145,7 @@ export const drawDickbutt = async (bot: Bot): Promise<Bot> => {
   bot = await drawLine(bot, "UP", 2);
   bot = await drawLine(bot, "RIGHT_UP", 2);
   bot = await drawLine(bot, "UP", 3);
-  bot = await moveBotDiagonal(bot, "RIGHT_DOWN", 13);
+  bot = await moveBot(bot, "RIGHT_DOWN", 13);
 
   return bot;
 };
