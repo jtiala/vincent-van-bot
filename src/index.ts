@@ -1,5 +1,7 @@
 import * as api from "./Api";
-import { goto, registerBot } from "./util";
+import { drawLine } from "./draw";
+import { goto } from "./move";
+import { registerBot } from "./util";
 
 const botName = "Vincent van Bot";
 const botColor = 9;
@@ -24,12 +26,13 @@ export async function main() {
   bot = await api.say(bot, sayings[Math.floor(Math.random() * sayings.length)]);
 
   bot = await goto(bot, 10, 10);
+  bot = await drawLine(bot, "RIGHT", 5);
 
   console.log(
     `Current bot position: ${bot.position?.x},${bot.position?.y} and current bot color: ${bot.color}`
   );
 
-  console.log(await api.bots(bot));
+  // console.log(await api.bots(bot));
 
   // await deregisterBot(bot);
 }

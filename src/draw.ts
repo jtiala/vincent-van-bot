@@ -1,7 +1,7 @@
 import * as api from "./Api";
+import { moveBotDiagonal } from "./move";
 import { Bot } from "./types/Bot";
 import { Dir, dirs } from "./types/Dirs";
-import { moveBotDiagonal } from "./util";
 
 export const drawRectangle = async (bot: Bot, width: number): Promise<Bot> => {
   for (const dir of dirs) {
