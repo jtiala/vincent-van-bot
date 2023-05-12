@@ -105,8 +105,8 @@ const parsePixelResponse = (response: string): Pixel => {
     x = parseInt(<string>params.get("x"));
   }
 
-  if (params.get("color")) {
-    y = parseInt(<string>params.get("color"));
+  if (params.get("y")) {
+    y = parseInt(<string>params.get("y"));
   }
 
   if (!color || !x || !y) {
