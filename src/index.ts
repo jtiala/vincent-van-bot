@@ -1,6 +1,6 @@
 import * as api from "./Api";
 import { randomStartingPointForSprite } from "./canvas";
-import { getRandomColor } from "./colors";
+import { randomColor } from "./colors";
 import { dickbutHeight, dickbutWidth, drawDickbutt } from "./draw";
 import { goto } from "./move";
 import { sayRandomQuote } from "./say";
@@ -10,14 +10,12 @@ const botName = "Vincent van Bot";
 
 export async function main() {
   let bot = await registerBot(botName);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await sayRandomQuote(bot);
 
   bot = await goto(bot, { x: 1, y: 1 });
 
   do {
     bot = await sayRandomQuote(bot);
-    bot = await api.setColor(bot, getRandomColor());
+    bot = await api.setColor(bot, randomColor());
     bot = await goto(
       bot,
       randomStartingPointForSprite(dickbutWidth, dickbutHeight)

@@ -1,7 +1,8 @@
 import * as api from "./Api";
+import { diagonalDirToDirs, dirs, isDiagonalDir } from "./dir";
 import { moveBot } from "./move";
 import { Bot } from "./types/Bot";
-import { DiagonalDir, Dir, dirs } from "./types/Dirs";
+import { DiagonalDir, Dir } from "./types/Dirs";
 
 export const drawRectangle = async (bot: Bot, width: number): Promise<Bot> => {
   for (const dir of dirs) {
@@ -19,20 +20,8 @@ export const drawLine = async (
   dir: Dir | DiagonalDir,
   length: number
 ): Promise<Bot> => {
-  if (
-    dir === "RIGHT_UP" ||
-    dir === "RIGHT_DOWN" ||
-    dir === "LEFT_UP" ||
-    dir === "LEFT_DOWN"
-  ) {
-    const dirs: Dir[] =
-      dir === "RIGHT_DOWN"
-        ? ["RIGHT", "DOWN"]
-        : dir === "RIGHT_UP"
-        ? ["RIGHT", "UP"]
-        : dir === "LEFT_DOWN"
-        ? ["LEFT", "DOWN"]
-        : ["LEFT", "UP"];
+  if (isDiagonalDir(dir)) {
+    const dirs = diagonalDirToDirs(dir);
 
     for (let i = 1; i < length; i++) {
       bot = await api.paintPixel(bot);

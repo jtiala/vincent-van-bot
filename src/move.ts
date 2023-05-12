@@ -1,5 +1,6 @@
 import * as api from "./Api";
 import { canvasHeight, canvasWidth } from "./canvas";
+import { diagonalDirToDirs, isDiagonalDir } from "./dir";
 import { Bot } from "./types/Bot";
 import { DiagonalDir, Dir } from "./types/Dirs";
 import { Point } from "./types/Point";
@@ -9,20 +10,8 @@ export const moveBot = async (
   dir: Dir | DiagonalDir,
   dist: number
 ): Promise<Bot> => {
-  if (
-    dir === "RIGHT_UP" ||
-    dir === "RIGHT_DOWN" ||
-    dir === "LEFT_UP" ||
-    dir === "LEFT_DOWN"
-  ) {
-    const dirs: Dir[] =
-      dir === "RIGHT_DOWN"
-        ? ["RIGHT", "DOWN"]
-        : dir === "RIGHT_UP"
-        ? ["RIGHT", "UP"]
-        : dir === "LEFT_DOWN"
-        ? ["LEFT", "DOWN"]
-        : ["LEFT", "UP"];
+  if (isDiagonalDir(dir)) {
+    const dirs = diagonalDirToDirs(dir);
 
     for (const dir of dirs) {
       for (let i = 0; i < dist; i++) {

@@ -1,5 +1,4 @@
 import * as api from "./Api";
-
 import { Bot } from "./types/Bot";
 
 const quotes = [

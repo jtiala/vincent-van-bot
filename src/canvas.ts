@@ -5,16 +5,8 @@ export const randomStartingPointForSprite = (
   spriteWidth: number,
   spriteHeight: number
 ) => {
-  let x: number | undefined = undefined;
-  let y: number | undefined = undefined;
-
-  do {
-    x = Math.floor(Math.random() * canvasWidth) + 1;
-  } while (x + spriteWidth > canvasWidth);
-
-  do {
-    y = Math.floor(Math.random() * canvasHeight) + 1;
-  } while (y + spriteHeight > canvasHeight);
+  const x = Math.floor(Math.random() * (canvasWidth - spriteWidth)) + 1;
+  const y = Math.floor(Math.random() * (canvasHeight - spriteHeight)) + 1;
 
   return { x, y };
 };
