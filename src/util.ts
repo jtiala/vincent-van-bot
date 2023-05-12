@@ -1,6 +1,7 @@
 import { promises as fs } from "fs";
 import * as api from "./Api";
 import { Bot } from "./types/Bot";
+import { DiagonalDir, Dir } from "./types/Dirs";
 
 const configFilePath = "botConfig.cfg";
 const fileExists = async (path: string) =>
@@ -71,13 +72,38 @@ export const deregisterBot = async (bot: Bot) => {
 
 export const moveBot = async (
   bot: Bot,
-  dir: string,
+  dir: Dir,
   dist: number
 ): Promise<Bot> => {
   let result = bot;
 
   for (let i = 0; i < dist; i++) {
     result = await api.moveBot(bot, dir);
+  }
+
+  return result;
+};
+
+export const moveBotDiagonal = async (
+  bot: Bot,
+  dir: DiagonalDir,
+  dist: number
+): Promise<Bot> => {
+  let result = bot;
+
+  const dirs: Dir[] =
+    dir === "RIGHT_DOWN"
+      ? ["RIGHT", "DOWN"]
+      : dir === "RIGHT_UP"
+      ? ["RIGHT", "UP"]
+      : dir === "LEFT_DOWN"
+      ? ["LEFT", "DOWN"]
+      : ["LEFT", "UP"];
+
+  for (const dir of dirs) {
+    for (let i = 0; i < dist; i++) {
+      result = await api.moveBot(bot, dir);
+    }
   }
 
   return result;

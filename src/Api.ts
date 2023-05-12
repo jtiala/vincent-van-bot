@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import { Bot } from "./types/Bot";
 import { BotCommand } from "./types/BotCommand";
+import { Dir } from "./types/Dirs";
 import { Pixel } from "./types/Pixel";
 
 const API_URL = process.env.PAINTBOTS_URL || "http://localhost:31173/";
@@ -132,7 +133,7 @@ const apiCommand = async (bot: Bot, command: BotCommand, errorMsg: string) => {
   }
 };
 
-export const moveBot = async (bot: Bot, dir: string): Promise<Bot> => {
+export const moveBot = async (bot: Bot, dir: Dir): Promise<Bot> => {
   return await apiCommand(bot, { id: bot.id, move: dir }, "Failed to move bot");
 };
 
