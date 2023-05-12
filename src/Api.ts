@@ -109,7 +109,7 @@ const parsePixelResponse = (response: string): Pixel => {
     y = parseInt(<string>params.get("y"));
   }
 
-  if (!color || !x || !y) {
+  if (color == undefined || color === null || !x || !y) {
     throw Error("Unable to parse pixel response!");
   }
 
