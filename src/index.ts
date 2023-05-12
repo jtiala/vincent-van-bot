@@ -1,6 +1,6 @@
 import * as api from "./Api";
-import { drawLine } from "./draw";
-import { goto } from "./move";
+import { drawDickbutt } from "./draw";
+import { goto, moveBotDiagonal } from "./move";
 import { registerBot } from "./util";
 
 const botName = "Vincent van Bot";
@@ -25,8 +25,24 @@ export async function main() {
   bot = await api.setColor(bot, botColor);
   bot = await api.say(bot, sayings[Math.floor(Math.random() * sayings.length)]);
 
-  bot = await goto(bot, 10, 10);
-  bot = await drawLine(bot, "RIGHT", 5);
+  bot = await goto(bot, 100, 1);
+  bot = await moveBotDiagonal(bot, "RIGHT_DOWN", 2);
+
+  // Test
+  // bot = await drawLine(bot, "RIGHT", 3);
+  // bot = await goto(bot, 30, 33);
+  // bot = await drawLine(bot, "RIGHT", 1);
+  // bot = await goto(bot, 33, 33);
+  // bot = await drawLine(bot, "RIGHT", 1);
+  // bot = await drawDiagonalLine(bot, "RIGHT_DOWN", 3);
+
+  bot = await drawDickbutt(bot);
+  bot = await drawDickbutt(bot);
+  bot = await drawDickbutt(bot);
+  bot = await drawDickbutt(bot);
+  bot = await drawDickbutt(bot);
+  bot = await drawDickbutt(bot);
+  bot = await drawDickbutt(bot);
 
   console.log(
     `Current bot position: ${bot.position?.x},${bot.position?.y} and current bot color: ${bot.color}`
