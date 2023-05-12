@@ -7,13 +7,11 @@ export const moveBot = async (
   dir: Dir,
   dist: number
 ): Promise<Bot> => {
-  let result = bot;
-
   for (let i = 0; i < dist; i++) {
-    result = await api.moveBot(bot, dir);
+    bot = await api.moveBot(bot, dir);
   }
 
-  return result;
+  return bot;
 };
 
 export const moveBotDiagonal = async (
@@ -21,8 +19,6 @@ export const moveBotDiagonal = async (
   dir: DiagonalDir,
   dist: number
 ): Promise<Bot> => {
-  let result = bot;
-
   const dirs: Dir[] =
     dir === "RIGHT_DOWN"
       ? ["RIGHT", "DOWN"]
@@ -34,43 +30,37 @@ export const moveBotDiagonal = async (
 
   for (const dir of dirs) {
     for (let i = 0; i < dist; i++) {
-      result = await api.moveBot(bot, dir);
+      bot = await api.moveBot(bot, dir);
     }
   }
 
-  return result;
+  return bot;
 };
 
 export const goto = async (bot: Bot, x: number, y: number): Promise<Bot> => {
-  let result = bot;
-
-  if (!bot.position?.x || !bot.position?.y) {
-    return bot;
-  }
-
-  if (bot.position.x < x) {
+  if (bot.position?.x && bot.position.x < x) {
     for (let i = bot.position.x; i < x; i++) {
-      result = await api.moveBot(bot, "RIGHT");
+      bot = await api.moveBot(bot, "RIGHT");
     }
   }
 
-  if (bot.position.x > x) {
+  if (bot.position?.x && bot.position.x > x) {
     for (let i = bot.position.x; i > x; i--) {
-      result = await api.moveBot(bot, "LEFT");
+      bot = await api.moveBot(bot, "LEFT");
     }
   }
 
-  if (bot.position.y < y) {
+  if (bot.position?.y && bot.position.y < y) {
     for (let i = bot.position.y; i < y; i++) {
-      result = await api.moveBot(bot, "DOWN");
+      bot = await api.moveBot(bot, "DOWN");
     }
   }
 
-  if (bot.position.y > y) {
+  if (bot.position?.y && bot.position.y > y) {
     for (let i = bot.position.y; i > y; i--) {
-      result = await api.moveBot(bot, "UP");
+      bot = await api.moveBot(bot, "UP");
     }
   }
 
-  return result;
+  return bot;
 };
