@@ -1,5 +1,5 @@
 import * as api from "./Api";
-import { registerBot } from "./util";
+import { goto, registerBot } from "./util";
 
 const botName = "Vincent van Bot";
 const botColor = 9;
@@ -22,6 +22,8 @@ export async function main() {
   let bot = await registerBot(botName);
   bot = await api.setColor(bot, botColor);
   bot = await api.say(bot, sayings[Math.floor(Math.random() * sayings.length)]);
+
+  bot = await goto(bot, 10, 10);
 
   console.log(
     `Current bot position: ${bot.position?.x},${bot.position?.y} and current bot color: ${bot.color}`

@@ -108,3 +108,37 @@ export const moveBotDiagonal = async (
 
   return result;
 };
+
+export const goto = async (bot: Bot, x: number, y: number): Promise<Bot> => {
+  let result = bot;
+
+  if (!bot.position?.x || !bot.position?.y) {
+    return bot;
+  }
+
+  if (bot.position.x < x) {
+    for (let i = bot.position.x; i < x; i++) {
+      result = await api.moveBot(bot, "RIGHT");
+    }
+  }
+
+  if (bot.position.x > x) {
+    for (let i = bot.position.x; i > x; i--) {
+      result = await api.moveBot(bot, "LEFT");
+    }
+  }
+
+  if (bot.position.y < y) {
+    for (let i = bot.position.y; i < y; i++) {
+      result = await api.moveBot(bot, "DOWN");
+    }
+  }
+
+  if (bot.position.y > y) {
+    for (let i = bot.position.y; i > y; i--) {
+      result = await api.moveBot(bot, "UP");
+    }
+  }
+
+  return result;
+};
