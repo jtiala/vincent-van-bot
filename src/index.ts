@@ -1,10 +1,10 @@
 import * as api from "./Api";
+import { getRandomColor } from "./colors";
 import { drawDickbutt } from "./draw";
 import { goto, moveBotDiagonal } from "./move";
 import { registerBot } from "./util";
 
 const botName = "Vincent van Bot";
-const botColor = 9;
 
 const sayings = [
   "I am seeking, I am striving. I am in it with all my heart.",
@@ -22,7 +22,7 @@ const sayings = [
 
 export async function main() {
   let bot = await registerBot(botName);
-  bot = await api.setColor(bot, botColor);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await api.say(bot, sayings[Math.floor(Math.random() * sayings.length)]);
 
   bot = await goto(bot, 100, 1);
@@ -36,12 +36,19 @@ export async function main() {
   // bot = await drawLine(bot, "RIGHT", 1);
   // bot = await drawDiagonalLine(bot, "RIGHT_DOWN", 3);
 
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
+  bot = await api.setColor(bot, getRandomColor());
   bot = await drawDickbutt(bot);
 
   console.log(
