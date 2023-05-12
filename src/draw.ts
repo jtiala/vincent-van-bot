@@ -56,6 +56,9 @@ export const drawDiagonalLine = async (
   return bot;
 };
 
+export const dickbutWidth = 21;
+export const dickbutHeight = 26;
+
 export const drawDickbutt = async (bot: Bot): Promise<Bot> => {
   bot = await moveBot(bot, "RIGHT", 4);
   bot = await drawLine(bot, "RIGHT", 5);
@@ -141,7 +144,7 @@ export const drawDickbutt = async (bot: Bot): Promise<Bot> => {
   bot = await drawLine(bot, "UP", 2);
   bot = await drawDiagonalLine(bot, "RIGHT_UP", 2);
   bot = await drawLine(bot, "UP", 3);
-  bot = await moveBotDiagonal(bot, "RIGHT_DOWN", 12);
+  bot = await moveBotDiagonal(bot, "RIGHT_DOWN", 13);
 
   return bot;
 };

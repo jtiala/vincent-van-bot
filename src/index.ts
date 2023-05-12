@@ -1,5 +1,8 @@
 import * as api from "./Api";
+import { randomStartingPointForSprite } from "./canvas";
 import { getRandomColor } from "./colors";
+import { dickbutHeight, dickbutWidth, drawDickbutt } from "./draw";
+import { goto } from "./move";
 import { sayRandomQuote } from "./say";
 import { registerBot } from "./util";
 
@@ -10,16 +13,18 @@ export async function main() {
   bot = await api.setColor(bot, getRandomColor());
   bot = await sayRandomQuote(bot);
 
-  // Dickbutt
-  // for (let i = 0; i < 7; i++) {
-  // bot = await sayRandomQuote(bot);
-  //   bot = await api.setColor(bot, getRandomColor());
-  //   bot = await drawDickbutt(bot);
-  // }
+  bot = await goto(bot, { x: 1, y: 1 });
 
-  console.log(
-    `Current bot position: ${bot.position?.x},${bot.position?.y} and current bot color: ${bot.color}`
-  );
+  do {
+    bot = await sayRandomQuote(bot);
+    bot = await api.setColor(bot, getRandomColor());
+    bot = await goto(
+      bot,
+      randomStartingPointForSprite(dickbutWidth, dickbutHeight)
+    );
+    bot = await drawDickbutt(bot);
+    // eslint-disable-next-line no-constant-condition
+  } while (true);
 }
 
 if (require.main === module) {
