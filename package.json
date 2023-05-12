@@ -1,7 +1,7 @@
 {
   "name": "vincent-van-bot",
   "version": "1.0.0",
-  "description": "Client for the paintbots canvas.",
+  "description": "Bot for the Paintbots canvas",
   "main": "index.ts",
   "scripts": {
     "start": "npm run build && node build/index.js",
