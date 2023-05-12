@@ -1,6 +1,8 @@
 import * as api from "./Api";
+import { canvasHeight, canvasWidth } from "./canvas";
 import { Bot } from "./types/Bot";
 import { DiagonalDir, Dir } from "./types/Dirs";
+import { Point } from "./types/Point";
 
 export const moveBot = async (
   bot: Bot,
@@ -37,7 +39,15 @@ export const moveBotDiagonal = async (
   return bot;
 };
 
-export const goto = async (bot: Bot, x: number, y: number): Promise<Bot> => {
+export const goto = async (bot: Bot, position: Point): Promise<Bot> => {
+  const { x, y } = position;
+
+  if (x < 1 || y < 1 || x > canvasWidth || y > canvasHeight) {
+    console.log(`Invalid point: ${x},${y}`);
+
+    return bot;
+  }
+
   if (bot.position?.x && bot.position.x < x) {
     for (let i = bot.position.x; i < x; i++) {
       bot = await api.moveBot(bot, "RIGHT");
