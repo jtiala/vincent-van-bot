@@ -1,8 +1,8 @@
-import { ColorValue } from "./Color";
+import { Color } from "./Color";
 
 export interface BotCommand {
   id: string;
-  color?: ColorValue;
+  color?: Color;
   move?: string;
   paint?: string;
   clear?: string;

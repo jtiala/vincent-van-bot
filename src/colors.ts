@@ -1,6 +1,6 @@
-import { ColorValue, colors } from "./types/Color";
+import { Color, colors } from "./types/Color";
 
-export const getRandomColor = (): ColorValue =>
+export const getRandomColor = (): Color =>
   Object.values(colors)[
     Math.floor(Math.random() * Object.values(colors).length)
   ];

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import { Bot } from "./types/Bot";
 import { BotCommand } from "./types/BotCommand";
-import { ColorValue } from "./types/Color";
+import { Color } from "./types/Color";
 import { Dir } from "./types/Dirs";
 import { Pixel } from "./types/Pixel";
 
@@ -96,12 +96,12 @@ export const bots = async (bot: Bot): Promise<Bot> => {
 
 const parsePixelResponse = (response: string): Pixel => {
   const params = new URLSearchParams(response);
-  let color: ColorValue | null = null;
+  let color: Color | null = null;
   let x: number | null = null;
   let y: number | null = null;
 
   if (params.get("color")) {
-    color = params.get("color") as ColorValue;
+    color = params.get("color") as Color;
   }
 
   if (params.get("x")) {
@@ -140,31 +140,7 @@ export const moveBot = async (bot: Bot, dir: Dir): Promise<Bot> => {
   return await apiCommand(bot, { id: bot.id, move: dir }, "Failed to move bot");
 };
 
-/**
- *
- * ;; pico-8 16 color palette from https://www.pixilart.com/palettes/pico-8-51001
- * 0 "#000000"
- * 1 "#1D2B53"
- * 2 "#7E2553"
- * 3 "#008751"
- * 4 "#AB5236"
- * 5 "#5F574F"
- * 6 "#C2C3C7"
- * 7 "#FFF1E8"
- * 8 "#FF004D"
- * 9 "#FFA300"
- * 10 "#FFEC27"
- * 11 "#00E436"
- * 12 "#29ADFF"
- * 13 "#83769C"
- * 14 "#FF77A8"
- * 15 "#FFCCAA"
- *
- * @param bot
- * @param color
- *
- */
-export const setColor = async (bot: Bot, color: ColorValue): Promise<Bot> => {
+export const setColor = async (bot: Bot, color: Color): Promise<Bot> => {
   return await apiCommand(bot, { id: bot.id, color }, "Failed to set color");
 };
 
