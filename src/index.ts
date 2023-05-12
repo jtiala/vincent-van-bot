@@ -2,6 +2,7 @@ import * as api from "./Api";
 import { getRandomColor } from "./colors";
 import { drawDickbutt } from "./draw";
 import { goto, moveBotDiagonal } from "./move";
+import { Bot } from "./types/Bot";
 import { registerBot } from "./util";
 
 const botName = "Vincent van Bot";
@@ -20,10 +21,17 @@ const sayings = [
   "There is no blue without yellow and without orange.",
 ];
 
+const randomSay = async (bot: Bot) => {
+  return await api.say(
+    bot,
+    sayings[Math.floor(Math.random() * sayings.length)]
+  );
+};
+
 export async function main() {
   let bot = await registerBot(botName);
   bot = await api.setColor(bot, getRandomColor());
-  bot = await api.say(bot, sayings[Math.floor(Math.random() * sayings.length)]);
+  bot = await randomSay(bot);
 
   bot = await goto(bot, 100, 1);
   bot = await moveBotDiagonal(bot, "RIGHT_DOWN", 2);
@@ -36,20 +44,12 @@ export async function main() {
   // bot = await drawLine(bot, "RIGHT", 1);
   // bot = await drawDiagonalLine(bot, "RIGHT_DOWN", 3);
 
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
-  bot = await api.setColor(bot, getRandomColor());
-  bot = await drawDickbutt(bot);
+  // Dickbutt
+  for (let i = 0; i < 7; i++) {
+    bot = await randomSay(bot);
+    bot = await api.setColor(bot, getRandomColor());
+    bot = await drawDickbutt(bot);
+  }
 
   console.log(
     `Current bot position: ${bot.position?.x},${bot.position?.y} and current bot color: ${bot.color}`

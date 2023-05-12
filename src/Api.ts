@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import { Bot } from "./types/Bot";
 import { BotCommand } from "./types/BotCommand";
+import { ColorValue } from "./types/Color";
 import { Dir } from "./types/Dirs";
 import { Pixel } from "./types/Pixel";
 
@@ -95,10 +96,12 @@ export const bots = async (bot: Bot): Promise<Bot> => {
 
 const parsePixelResponse = (response: string): Pixel => {
   const params = new URLSearchParams(response);
-  let color, x, y;
+  let color: ColorValue | null = null;
+  let x: number | null = null;
+  let y: number | null = null;
 
   if (params.get("color")) {
-    color = parseInt(<string>params.get("color"));
+    color = params.get("color") as ColorValue;
   }
 
   if (params.get("x")) {
@@ -109,7 +112,7 @@ const parsePixelResponse = (response: string): Pixel => {
     y = parseInt(<string>params.get("y"));
   }
 
-  if (color == undefined || color === null || !x || !y) {
+  if (!color || !x || !y) {
     throw Error("Unable to parse pixel response!");
   }
 
@@ -161,7 +164,7 @@ export const moveBot = async (bot: Bot, dir: Dir): Promise<Bot> => {
  * @param color
  *
  */
-export const setColor = async (bot: Bot, color: number): Promise<Bot> => {
+export const setColor = async (bot: Bot, color: ColorValue): Promise<Bot> => {
   return await apiCommand(bot, { id: bot.id, color }, "Failed to set color");
 };
 
